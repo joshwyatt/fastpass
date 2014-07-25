@@ -16,7 +16,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
 
   // display page loading overlay while retrieving information from Firebase
   $ionicLoading.show({
-    template: '<i class="icon ion-looping"></i>'
+    template: '<i class="icon ion-loading-c"></i>'
   });
 
   // retrieve chat partner information
@@ -57,7 +57,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
 
   // display page loading overlay while retrieving information from Firebase
   $ionicLoading.show({
-    template: '<i class="icon ion-looping"></i>'
+    template: '<i class="icon ion-loading-c"></i>'
   });
 
   // for display of logged in user's offers from database
@@ -671,13 +671,14 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
   $scope.validateUser = function(type) {
     authService.login(type);
   };
+  authService.logout();
 })
 
-// log out user
-.controller('logoutController', function(authService, $state) {
-  authService.logout();
-  $state.go('app.home');
-})
+// // log out user
+// .controller('logoutController', function(authService, $state) {
+//   authService.logout();
+//   $state.go('app.home');
+// })
 
 .controller('HomeTabCtrl', function($scope) {
 });
