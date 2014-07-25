@@ -82,7 +82,7 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
         if ($scope.offerRef.createdAt === offer.createdAt) {
           $scope.selectedOffer = new Firebase('https://fastpass-connection.firebaseio.com/users/' + authService.getUserId() + '/offers/' + $scope.offerName);
           $scope.selectedOffer.on('value', function(snapshot) {
-            debugger;
+
           });
         }
       });
@@ -175,99 +175,21 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
   };
 })
 
-.controller('offerController', function($scope, $firebase, authService, $state, timerService) {
+.controller('offerController', function($scope, $firebase, authService, $state, timerService, offerDetailsService) {
   // $scope properties for drop down menus
-  $scope.rides = [
-    {name: '', value: ''},
-    {name: 'Splash Mountain', value: 'Splash Mountain'},
-    {name: 'Space Mountain', value: 'Space Mountain'},
-    {name: 'Thunder Mtn Railroad', value: 'Thunder Mtn Railroad'},
-    {name: 'Indiana Jones', value: 'Indiana Jones'},
-    {name: 'Star Tours', value: 'Star Tours'},
-    {name: 'Autopia', value: 'Autopia'},
-    {name: 'Roger Rabbit', value: 'Roger Rabbit'},
-    {name: 'California Screamin', value: 'California Screamin'},
-    {name: 'Goofy\'s Sky School', value: 'Goofy\'s Sky School'},
-    {name: 'Grizzly River Run', value: 'Grizzly River Run'},
-    {name: 'Radiator Racers', value: 'Radiator Racers'},
-    {name: 'Soarin Over CA', value: 'Soarin Over CA'},
-    {name: 'Tower Of Terror', value: 'Tower Of Terror'}
-  ];
+  $scope.rides = offerDetailsService.rides;
 
-  $scope.passTimeHour = [
-    {name: 'Hour', value: ''},
-    {name: '1', value: '1'},
-    {name: '2', value: '2'},
-    {name: '3', value: '3'},
-    {name: '4', value: '4'},
-    {name: '5', value: '5'},
-    {name: '6', value: '6'},
-    {name: '7', value: '7'},
-    {name: '8', value: '8'},
-    {name: '9', value: '9'},
-    {name: '10', value: '10'},
-    {name: '11', value: '11'},
-    {name: '12', value: '12'}
-  ];
+  $scope.passTimeHour = offerDetailsService.passTimeHour;
 
-  $scope.passTimeMin = [
-    {name: '', value: ''},
-    {name: '00', value: '00'},
-    {name: '05', value: '05'},
-    {name: '10', value: '10'},
-    {name: '15', value: '15'},
-    {name: '20', value: '20'},
-    {name: '25', value: '25'},
-    {name: '30', value: '30'},
-    {name: '35', value: '35'},
-    {name: '40', value: '40'},
-    {name: '45', value: '45'},
-    {name: '50', value: '50'},
-    {name: '55', value: '55'}
-  ];
+  $scope.passTimeMin = offerDetailsService.passTimeMin;
 
-  $scope.passTimeAmPm = [
-    {name: '', value: ''},
-    {name: 'AM', value: 'AM'},
-    {name: 'PM', value: 'PM'}
-  ];
+  $scope.passTimeAmPm = offerDetailsService.passTimeAmPm;
 
-  $scope.locations = [
-    {name: '', value: ''},
-    {name: 'AdventureLand', value: 'Adventureland'},
-    {name: 'Critter Country', value: 'Critter Country'},
-    {name: 'Fantasyland', value: 'Fantasyland'},
-    {name: 'Frontierland', value: 'Frontierland'},
-    {name: 'Main Street', value: 'Main Street'},
-    {name: 'Mickey\'s Toontown', value: 'Mickey\'s Toontown'},
-    {name: 'New Orleans Square', value: 'New Orleans Square'},
-    {name: 'Tomorrowland', value: 'Tomorrowland'},
-    {name: 'Condor Flats', value: 'Condor Flats'},
-    {name: 'Buena Vista', value: 'Buena Vista'},
-    {name: 'Hollywood', value: 'Hollywood'},
-    {name: 'Grizzy Peak', value: 'Grizzy Peak'},
-    {name: 'Bug\'s Land', value: 'Bug\'s Land'},
-    {name: 'Paradise Pier', value: 'Paradise Pier'},
-    {name: 'Pacific Wharf', value: 'Pacific Wharf'},
-    {name: 'Car\'s Land', value: 'Car\'s Land'},
-    {name: 'Downtown Disney', value: 'Downtown Disney'},
+  $scope.locations = offerDetailsService.locations;
 
-  ];
+  $scope.numbers_give = offerDetailsService.numbers_give;
 
-  $scope.numbers_give = [
-    {name: '', value: ''},
-    {name: '1 Fastpass', value: '1 Fastpass'},
-    {name: '2 Fastpasses', value: '2 Fastpasses'},
-    {name: '3 Fastpasses', value: '3 Fastpasses'},
-    {name: '4 Fastpasses', value: '4 Fastpasses'},
-    {name: '5 Fastpasses', value: '5 Fastpasses'},
-  ];
-
-  $scope.comments = [
-    {name: '', value: ''},
-    {name: 'Free', value: 'free'},
-    {name: 'Trade', value: 'trade'}
-  ];
+  $scope.comments = offerDetailsService.comments;
 
   var initVars = function() {
     // clear status and error message
@@ -337,7 +259,8 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
 
     if (isDataValid()) {
       console.log('submitted data is valid');
-      if (timerService.isOfferAfterTimeLimit()){
+      // if (timerService.isOfferAfterTimeLimit()){
+      if (true){
         // get all offers from the database
         var offerRef = new Firebase('https://fastpass-connection.firebaseio.com/offers');
         // add new offer to the database
