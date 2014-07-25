@@ -83,6 +83,15 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
           $scope.selectedOffer = new Firebase('https://fastpass-connection.firebaseio.com/users/' + authService.getUserId() + '/offers/' + $scope.offerName);
           $scope.selectedOffer.on('value', function(snapshot) {
 
+            $scope.ride = snapshot.val().ride;
+            $scope.passTimeHour = snapshot.val().hour;
+            $scope.passTimeMin = snapshot.val().min;
+            $scope.passTimeAmPm = snapshot.val().ampm;
+            $scope.locations = snapshot.val().location;
+            $scope.numbers_give = snapshot.val().number_give;
+            $scope.comments = snapshot.val().comments;
+            debugger;
+            // $scope.offer.ride = 
           });
         }
       });
@@ -178,17 +187,11 @@ angular.module('fastpass.controllers', ['ionic', 'firebase'])
 .controller('offerController', function($scope, $firebase, authService, $state, timerService, offerDetailsService) {
   // $scope properties for drop down menus
   $scope.rides = offerDetailsService.rides;
-
   $scope.passTimeHour = offerDetailsService.passTimeHour;
-
   $scope.passTimeMin = offerDetailsService.passTimeMin;
-
   $scope.passTimeAmPm = offerDetailsService.passTimeAmPm;
-
   $scope.locations = offerDetailsService.locations;
-
   $scope.numbers_give = offerDetailsService.numbers_give;
-
   $scope.comments = offerDetailsService.comments;
 
   var initVars = function() {
