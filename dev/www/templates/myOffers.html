@@ -9,7 +9,7 @@
 
   <ion-content>
     <ion-list show-delete="showDelete">
-      <ion-item ng-cloak ng-repeat="offer in offers | orderByPriority | available" ui-sref="app.offerInput">
+      <ion-item ng-cloak ng-repeat="offer in offers | orderByPriority | available" ui-sref="app.editOffer" ng-click="editOffer(offer)">
         {{ offer.number_give }} for {{ offer.ride }}
         <ion-delete-button class="ion-ios7-trash-outline" ng-click="deleteOffer(offer)">
         </ion-delete-button>
